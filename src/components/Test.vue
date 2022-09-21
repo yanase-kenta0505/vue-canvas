@@ -42,7 +42,22 @@ const draw = () => {
     }
   }
 
-  makeBlue()
+  const makeRandomColor = () => {
+    const length = image.data.length
+    for (let i = 0; i < length; i++) {
+      image.data[i * 4] = 46
+      image.data[i * 4 + 1] = 135
+      image.data[i * 4 + 2] = 243
+      image.data[i * 4 + 3] = 255
+      // if(0 < i < length / 2) ←の書き方だと型エラーになってしまう
+      if (0 < i && i < length / 2) {
+        image.data[i * 4] = 243
+        image.data[i * 4 + 1] = 45
+        image.data[i * 4 + 2] = 53
+        image.data[i * 4 + 3] = 255
+      }
+    }
+  }
 
   const test = () => {
     ctx.putImageData(image, x.value, 0)
