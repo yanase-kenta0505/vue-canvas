@@ -14,12 +14,35 @@ const draw = () => {
   if (!ctx) return
   const image = ctx.createImageData(10, 10)
   // 青色にする
-  for (let i = 0; i < image.data.length; i++) {
-    image.data[i * 4] = 46
-    image.data[i * 4 + 1] = 135
-    image.data[i * 4 + 2] = 243
-    image.data[i * 4 + 3] = 255
+  const makeBlue = () => {
+    for (let i = 0; i < image.data.length; i++) {
+      image.data[i * 4] = 46
+      image.data[i * 4 + 1] = 135
+      image.data[i * 4 + 2] = 243
+      image.data[i * 4 + 3] = 255
+    }
   }
+  // 赤色にする
+  const makeRed = () => {
+    for (let i = 0; i < image.data.length; i++) {
+      image.data[i * 4] = 243
+      image.data[i * 4 + 1] = 45
+      image.data[i * 4 + 2] = 53
+      image.data[i * 4 + 3] = 255
+    }
+  }
+
+  // 茶色にする
+  const makeBrown = () => {
+    for (let i = 0; i < image.data.length; i++) {
+      image.data[i * 4] = 243
+      image.data[i * 4 + 1] = 160
+      image.data[i * 4 + 2] = 0
+      image.data[i * 4 + 3] = 255
+    }
+  }
+
+  makeBlue()
 
   timeOutId.value = setInterval(function test() {
     ctx.putImageData(image, x.value, y.value * 10)
@@ -27,35 +50,18 @@ const draw = () => {
     if (!canvas.value) return
     if (y.value * 10 === canvas.value.height) {
       // 青色に変更
-      for (let i = 0; i < image.data.length; i++) {
-        image.data[i * 4] = 46
-        image.data[i * 4 + 1] = 135
-        image.data[i * 4 + 2] = 243
-        image.data[i * 4 + 3] = 255
-      }
+      makeBlue()
       y.value = 0
       x.value += 10
       randomNum.value = Math.floor(Math.random() * 150 + 150)
-    }  
-    else if (y.value * 10 > randomNum.value && randomNum.value < 180 ) {
-      for (let i = 0; i < image.data.length; i++) {
-        //　赤色に変更
-        image.data[i * 4] = 243
-        image.data[i * 4 + 1] = 45
-        image.data[i * 4 + 2] = 53
-        image.data[i * 4 + 3] = 255
-      }
     }
-    else if (y.value * 10 > randomNum.value &&  randomNum.value < 300 ) {
-      for (let i = 0; i < image.data.length; i++) {
-        //　茶色に変更
-        image.data[i * 4] = 243
-        image.data[i * 4 + 1] = 160
-        image.data[i * 4 + 2] = 0
-        image.data[i * 4 + 3] = 255
-      }
+    else if (y.value * 10 > randomNum.value && randomNum.value < 180) {
+      makeRed()
     }
-    else if (x.value === canvas.value.width ) {
+    else if (y.value * 10 > randomNum.value && randomNum.value < 300) {
+      makeBrown()
+    }
+    else if (x.value === canvas.value.width) {
       clearInterval(timeOutId.value)
     }
   }, 10)
