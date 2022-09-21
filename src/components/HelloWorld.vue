@@ -44,7 +44,7 @@ const draw = () => {
 
   makeBlue()
 
-  timeOutId.value = setInterval(function test() {
+  const test = () => {
     ctx.putImageData(image, x.value, y.value * 10)
     y.value++
     if (!canvas.value) return
@@ -64,9 +64,10 @@ const draw = () => {
     else if (x.value === canvas.value.width) {
       clearInterval(timeOutId.value)
     }
-  }, 10)
-}
+  }
 
+  timeOutId.value = setInterval(test, 10)
+}
 
 const stop = () => clearInterval(timeOutId.value)
 
