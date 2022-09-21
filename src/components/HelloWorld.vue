@@ -5,6 +5,7 @@ let timeOutId = ref()
 
 let x = ref(0)
 let y = ref(0)
+let randomNum = ref(Math.floor(Math.random() * 150 + 150))
 
 
 const draw = () => {
@@ -15,28 +16,17 @@ const draw = () => {
   // 青色にする
 
   for (let i = 0; i < image.data.length; i++) {
-
     image.data[i * 4] = 46
     image.data[i * 4 + 1] = 135
     image.data[i * 4 + 2] = 243
     image.data[i * 4 + 3] = 255
   }
 
-  const makeBrown = () => {
-    for (let i = 0; i < image.data.length; i++) {
-      console.log('yaa')
-      image.data[i * 4] = 243
-      image.data[i * 4 + 1] = 108
-      image.data[i * 4 + 2] = 24
-      image.data[i * 4 + 3] = 255
-    }
-  }
-
   timeOutId.value = setInterval(function test() {
     ctx.putImageData(image, x.value, y.value * 10)
     y.value++
     if (!canvas.value) return
-    if (y.value * 10 === canvas.value.height || y.value * 10 === 0) {
+    if (y.value * 10 === canvas.value.height) {
       // 青色に変更
       for (let i = 0; i < image.data.length; i++) {
         image.data[i * 4] = 46
@@ -46,8 +36,18 @@ const draw = () => {
       }
       y.value = 0
       x.value += 10
-    } else if (y.value * 10 === canvas.value.height / 2) {
-      // 茶色に変更
+      randomNum.value = Math.floor(Math.random() * 150 + 150)
+    }
+    //  else if (y.value * 10 === canvas.value.height / 2) {
+    //   // 茶色に変更
+    //   for (let i = 0; i < image.data.length; i++) {
+    //     image.data[i * 4] = 243
+    //     image.data[i * 4 + 1] = 108
+    //     image.data[i * 4 + 2] = 24
+    //     image.data[i * 4 + 3] = 255
+    //   }
+    // } 
+    else if (y.value * 10 > randomNum.value) {
       for (let i = 0; i < image.data.length; i++) {
         image.data[i * 4] = 243
         image.data[i * 4 + 1] = 108
