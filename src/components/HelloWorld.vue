@@ -14,7 +14,6 @@ const draw = () => {
   if (!ctx) return
   const image = ctx.createImageData(10, 10)
   // 青色にする
-
   for (let i = 0; i < image.data.length; i++) {
     image.data[i * 4] = 46
     image.data[i * 4 + 1] = 135
@@ -37,23 +36,27 @@ const draw = () => {
       y.value = 0
       x.value += 10
       randomNum.value = Math.floor(Math.random() * 150 + 150)
-    }
-    //  else if (y.value * 10 === canvas.value.height / 2) {
-    //   // 茶色に変更
-    //   for (let i = 0; i < image.data.length; i++) {
-    //     image.data[i * 4] = 243
-    //     image.data[i * 4 + 1] = 108
-    //     image.data[i * 4 + 2] = 24
-    //     image.data[i * 4 + 3] = 255
-    //   }
-    // } 
-    else if (y.value * 10 > randomNum.value) {
+    }  
+    else if (y.value * 10 > randomNum.value && randomNum.value < 180 ) {
       for (let i = 0; i < image.data.length; i++) {
+        //　赤色に変更
         image.data[i * 4] = 243
-        image.data[i * 4 + 1] = 108
-        image.data[i * 4 + 2] = 24
+        image.data[i * 4 + 1] = 45
+        image.data[i * 4 + 2] = 53
         image.data[i * 4 + 3] = 255
       }
+    }
+    else if (y.value * 10 > randomNum.value &&  randomNum.value < 300 ) {
+      for (let i = 0; i < image.data.length; i++) {
+        //　茶色に変更
+        image.data[i * 4] = 243
+        image.data[i * 4 + 1] = 160
+        image.data[i * 4 + 2] = 0
+        image.data[i * 4 + 3] = 255
+      }
+    }
+    else if (x.value === canvas.value.width ) {
+      clearInterval(timeOutId.value)
     }
   }, 10)
 }
