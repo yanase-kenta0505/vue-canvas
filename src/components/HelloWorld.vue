@@ -3,6 +3,9 @@ import { ref } from 'vue';
 const canvas = ref<HTMLCanvasElement>();
 let timeOutId = ref()
 
+let x = ref(0)
+let y = ref(0)
+
 const draw = () => {
   if (!canvas.value) return
   const ctx: CanvasRenderingContext2D | null = canvas.value.getContext('2d')
@@ -26,15 +29,17 @@ const draw = () => {
     }
   }
 
-  let x = 0
-  let y = 0
 
   timeOutId.value = setInterval(function drawImge() {
     makeBlue()
-    ctx.putImageData(image, x, y * 10)
-    y++
+    ctx.putImageData(image, x.value, y.value * 10)
+    y.value++
+    if (y.value * 10 === canvas.value?.height) {
+      y.value = 0
+      x.value += 10
+    }
 
-  }, 1000)
+  }, 100)
 }
 
 const stop = () => clearInterval(timeOutId.value)
